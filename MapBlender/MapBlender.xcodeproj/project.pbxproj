@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		226F68571F1156A7000465A6 /* PlaceMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226F68561F1156A7000465A6 /* PlaceMaker.swift */; };
+		226F68591F115D45000465A6 /* GoogleDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226F68581F115D45000465A6 /* GoogleDataProvider.swift */; };
 		22F61D031F10CEEC00C70616 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F61D021F10CEEC00C70616 /* AppDelegate.swift */; };
 		22F61D051F10CEEC00C70616 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F61D041F10CEEC00C70616 /* ViewController.swift */; };
 		22F61D081F10CEEC00C70616 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22F61D061F10CEEC00C70616 /* Main.storyboard */; };
@@ -17,6 +19,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		226F68561F1156A7000465A6 /* PlaceMaker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceMaker.swift; sourceTree = "<group>"; };
+		226F68581F115D45000465A6 /* GoogleDataProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleDataProvider.swift; sourceTree = "<group>"; };
 		22F61CFF1F10CEEC00C70616 /* MapBlender.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapBlender.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		22F61D021F10CEEC00C70616 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		22F61D041F10CEEC00C70616 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -78,6 +82,8 @@
 				22F61D091F10CEEC00C70616 /* Assets.xcassets */,
 				22F61D0B1F10CEEC00C70616 /* LaunchScreen.storyboard */,
 				22F61D0E1F10CEEC00C70616 /* Info.plist */,
+				226F68561F1156A7000465A6 /* PlaceMaker.swift */,
+				226F68581F115D45000465A6 /* GoogleDataProvider.swift */,
 			);
 			path = MapBlender;
 			sourceTree = "<group>";
@@ -217,6 +223,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				22F61D051F10CEEC00C70616 /* ViewController.swift in Sources */,
+				226F68591F115D45000465A6 /* GoogleDataProvider.swift in Sources */,
+				226F68571F1156A7000465A6 /* PlaceMaker.swift in Sources */,
 				22F61D031F10CEEC00C70616 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

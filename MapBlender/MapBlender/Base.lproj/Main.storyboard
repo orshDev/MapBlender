@@ -25,16 +25,28 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v5x-xc-E1E">
+                                <rect key="frame" x="0.0" y="610" width="375" height="57"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0068207577720207357" green="0.0068207577720207357" blue="0.0068207577720207357" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="VMU-wn-8M3" secondAttribute="trailing" id="SAi-lO-ERR"/>
-                            <constraint firstItem="VMU-wn-8M3" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="WeN-0b-gEE"/>
-                            <constraint firstItem="VMU-wn-8M3" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="beB-j5-zw9"/>
-                            <constraint firstItem="VMU-wn-8M3" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="zEK-qY-yQo"/>
+                            <constraint firstItem="v5x-xc-E1E" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="590" id="6Xa-lC-oan"/>
+                            <constraint firstItem="VMU-wn-8M3" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="AVA-LN-Q3O"/>
+                            <constraint firstItem="VMU-wn-8M3" firstAttribute="leading" secondItem="v5x-xc-E1E" secondAttribute="leading" id="NSZ-m9-mci"/>
+                            <constraint firstItem="VMU-wn-8M3" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="XFS-bR-sOe"/>
+                            <constraint firstItem="VMU-wn-8M3" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="nPM-9e-yHF"/>
+                            <constraint firstItem="v5x-xc-E1E" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="uGb-M9-BNF"/>
+                            <constraint firstItem="VMU-wn-8M3" firstAttribute="trailing" secondItem="v5x-xc-E1E" secondAttribute="trailing" id="vE5-zO-y7M"/>
+                            <constraint firstAttribute="trailing" secondItem="VMU-wn-8M3" secondAttribute="trailing" id="zTT-3W-6UP"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="addressLabel" destination="v5x-xc-E1E" id="Cy2-rF-5Ha"/>
                         <outlet property="mapView" destination="VMU-wn-8M3" id="pQM-WR-72T"/>
                     </connections>
                 </viewController>
