@@ -13,6 +13,7 @@
 		22F61D0A1F10CEEC00C70616 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22F61D091F10CEEC00C70616 /* Assets.xcassets */; };
 		22F61D0D1F10CEEC00C70616 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22F61D0B1F10CEEC00C70616 /* LaunchScreen.storyboard */; };
 		22F61D151F10D6DF00C70616 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22F61D141F10D6DF00C70616 /* GoogleService-Info.plist */; };
+		805B151A425351DC65221B35 /* Pods_MapBlender.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E486FDC8CB610ABD9F4EA0B4 /* Pods_MapBlender.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,8 +25,9 @@
 		22F61D0C1F10CEEC00C70616 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		22F61D0E1F10CEEC00C70616 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		22F61D141F10D6DF00C70616 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		5B3E26577621A6D4C61DD89B /* Pods-MapBlender.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapBlender.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MapBlender/Pods-MapBlender.debug.xcconfig"; sourceTree = "<group>"; };
-		CC357827B5BA2A6FA41312F9 /* Pods-MapBlender.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapBlender.release.xcconfig"; path = "Pods/Target Support Files/Pods-MapBlender/Pods-MapBlender.release.xcconfig"; sourceTree = "<group>"; };
+		4F2D377B9660B106C190058D /* Pods-MapBlender.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapBlender.release.xcconfig"; path = "Pods/Target Support Files/Pods-MapBlender/Pods-MapBlender.release.xcconfig"; sourceTree = "<group>"; };
+		B1DEA6E45A9BA663BC12092B /* Pods-MapBlender.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapBlender.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MapBlender/Pods-MapBlender.debug.xcconfig"; sourceTree = "<group>"; };
+		E486FDC8CB610ABD9F4EA0B4 /* Pods_MapBlender.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MapBlender.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,18 +35,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				805B151A425351DC65221B35 /* Pods_MapBlender.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		02B59DE2571091C968C41FCB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E486FDC8CB610ABD9F4EA0B4 /* Pods_MapBlender.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		22F61CF61F10CEEC00C70616 = {
 			isa = PBXGroup;
 			children = (
 				22F61D011F10CEEC00C70616 /* MapBlender */,
 				22F61D001F10CEEC00C70616 /* Products */,
-				A89D6D1FB2375164DB466BA8 /* Pods */,
+				7516B464C89BA7859063802F /* Pods */,
+				02B59DE2571091C968C41FCB /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -70,11 +82,11 @@
 			path = MapBlender;
 			sourceTree = "<group>";
 		};
-		A89D6D1FB2375164DB466BA8 /* Pods */ = {
+		7516B464C89BA7859063802F /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				5B3E26577621A6D4C61DD89B /* Pods-MapBlender.debug.xcconfig */,
-				CC357827B5BA2A6FA41312F9 /* Pods-MapBlender.release.xcconfig */,
+				B1DEA6E45A9BA663BC12092B /* Pods-MapBlender.debug.xcconfig */,
+				4F2D377B9660B106C190058D /* Pods-MapBlender.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -324,11 +336,12 @@
 		};
 		22F61D121F10CEEC00C70616 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5B3E26577621A6D4C61DD89B /* Pods-MapBlender.debug.xcconfig */;
+			baseConfigurationReference = B1DEA6E45A9BA663BC12092B /* Pods-MapBlender.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = WMB7V6QTPE;
 				INFOPLIST_FILE = MapBlender/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Or.MapBlender;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -338,11 +351,12 @@
 		};
 		22F61D131F10CEEC00C70616 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CC357827B5BA2A6FA41312F9 /* Pods-MapBlender.release.xcconfig */;
+			baseConfigurationReference = 4F2D377B9660B106C190058D /* Pods-MapBlender.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = WMB7V6QTPE;
 				INFOPLIST_FILE = MapBlender/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Or.MapBlender;
 				PRODUCT_NAME = "$(TARGET_NAME)";

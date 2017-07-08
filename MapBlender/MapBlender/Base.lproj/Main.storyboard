@@ -21,18 +21,22 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="H71-JK-6eg">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VMU-wn-8M3" customClass="GMSMapView" colorLabel="IBBuiltInLabel-Gray">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                            </mapView>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="H71-JK-6eg" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="RJn-Ac-fWW"/>
-                            <constraint firstAttribute="trailing" secondItem="H71-JK-6eg" secondAttribute="trailing" id="aU0-8S-Rcc"/>
-                            <constraint firstItem="H71-JK-6eg" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="dNc-85-85e"/>
-                            <constraint firstItem="H71-JK-6eg" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="vEH-cr-0F0"/>
+                            <constraint firstAttribute="trailing" secondItem="VMU-wn-8M3" secondAttribute="trailing" id="SAi-lO-ERR"/>
+                            <constraint firstItem="VMU-wn-8M3" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="WeN-0b-gEE"/>
+                            <constraint firstItem="VMU-wn-8M3" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="beB-j5-zw9"/>
+                            <constraint firstItem="VMU-wn-8M3" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="zEK-qY-yQo"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="mapView" destination="VMU-wn-8M3" id="pQM-WR-72T"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
