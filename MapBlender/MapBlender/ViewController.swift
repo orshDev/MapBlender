@@ -34,7 +34,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate, GMSMapViewDele
         
         }) {(error)in print (error.localizedDescription)}
     }
-
+//
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
