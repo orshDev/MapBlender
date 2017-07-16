@@ -12,5 +12,6 @@ target 'MapBlender' do
   pod 'GoogleMaps'
   pod ‘Firebase’
   pod ‘Firebase/Database’
+  pod ‘SwiftyJSON’
 
 end

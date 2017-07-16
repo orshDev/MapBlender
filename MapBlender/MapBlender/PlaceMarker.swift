@@ -10,20 +10,27 @@ import UIKit
 import GooglePlaces
 import GoogleMaps
 
-class PlaceMaker: GMSMarker {
+public class PlaceMarker: GMSMarker {
     
     
     let place: GMSPlace
-    
-    // 2
+    var placeId : String  = ""    // 2
     init(place: GMSPlace) {
         self.place = place
         super.init()
-        
+        placeId = place.placeID
         position = place.coordinate
         icon = UIImage(named: place.types.first!)
         groundAnchor = CGPoint(x: 0.5, y: 1)
+     //   appearAnimation = KGMSMarkerAnimationPop
         // = GMSMarkerAnimation()
 
     }
+    
+   public func getPlaceID ()->String
+    {
+        
+        return placeId
+    }
+    
 }

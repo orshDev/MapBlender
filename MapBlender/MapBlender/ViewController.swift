@@ -49,6 +49,9 @@ class ViewController: UIViewController,CLLocationManagerDelegate{
         // Dispose of any resources that can be recreated.
     }
     
+    
+    
+    
     //Location Manager delegates
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
@@ -73,22 +76,20 @@ class ViewController: UIViewController,CLLocationManagerDelegate{
             if let address = response?.firstResult() {
                 print(address)
                 // 3
-         //       self.addressLabel.unlock()
+               self.addressLabel.unlock()
                 let lines = address.lines as [String]?
                 self.addressLabel.text = lines?.joined(separator: "\n")
                 
                 // 4
                 UIView.animate(withDuration: 0.25) {
-                    self.view.layoutIfNeeded()
-//                    let labelHeight = self.addressLabel.intrinsicContentSize.height
-//                    self.mapView.padding = UIEdgeInsets(top: self.topLayoutGuide.length, left: 0,
-//                                                        bottom: labelHeight, right: 0)
-//                    
-//                    UIView.animate(withDuration: 0.25) {
-//                        //2
-//                        self.pinImageVerticalConstraint.constant = ((labelHeight - self.topLayoutGuide.length) * 0.5)
-//                        self.view.layoutIfNeeded()
+              //      self.view.layoutIfNeeded()
+                  let labelHeight = self.addressLabel.intrinsicContentSize.height
+                   self.mapView.padding = UIEdgeInsets(top: self.topLayoutGuide.length, left: 0,
+                                                  bottom: labelHeight, right: 0)
                 }
+                
+                        self.view.layoutIfNeeded()
+                
             }
         }
     }
@@ -104,7 +105,29 @@ extension ViewController: GMSMapViewDelegate {
     }
     
     func mapView(_ mapView: GMSMapView, willMove gesture: Bool) {
-        //addressLabel.lock()
+        addressLabel.lock()
+    }
+    
+    func mapView(_ mapView: GMSMapView, markerInfoContents marker: GMSMarker) -> UIView? {
+        // 1
+       // let placeMarker = marker as! PlaceMarker
+        
+        // 2
+        if let infoView = UIView.viewFromNibName(name: "MarkerInfoView") as? MarkerInfoView {
+            // 3
+        //    infoView.nameLabel.text = placeMarker.place.name
+     //       infoView.loadFirstPhotoForPlace(placeID: PlaceMarker.getPlaceID(PlaceMarker))
+            // 4
+        //    if let photo = placeMarker.place.{
+        //        infoView.placePhoto.image = photo
+          //  } else {
+          //      infoView.placePhoto.image = UIImage(named: "generic")
+          //  }
+            
+            return infoView
+        } else {
+            return nil
+        }
     }
 }
 
