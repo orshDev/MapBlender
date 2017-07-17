@@ -50,7 +50,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate{
     }
     
     
-    
+    // TEST TEST
     
     //Location Manager delegates
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
