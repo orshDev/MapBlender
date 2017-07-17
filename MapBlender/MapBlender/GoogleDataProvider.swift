@@ -42,7 +42,8 @@ class GoogleDataProvider {
   {
    // var url = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=200&photoreference=(reference)&key=AIzaSyDLN1yrUHGslEtcxgeJTrfIRJBjoFryXl4"
     
-    var urlString = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=\(coordinate.latitude),\(coordinate.longitude)&radius=\(radius)&rankby=prominence&sensor=true"
+    var urlString = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=\(coordinate.latitude),\(coordinate.longitude)&radius=\(radius)&rankby=prominence&sensor=true&key=AIzaSyCI7rHEvomd2qbWY5dXH9Yews6kU87goA4"
+    print(urlString)
     let typesString = types.count > 0 ? types.joined(separator: "|") : "food"
     urlString += "&types=\(typesString)"
     urlString = urlString.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!

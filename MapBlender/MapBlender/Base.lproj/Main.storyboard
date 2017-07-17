@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina4_7" orientation="portrait">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina3_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -18,51 +18,41 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VMU-wn-8M3" customClass="GMSMapView" colorLabel="IBBuiltInLabel-Gray">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jNH-lR-tzr">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="39"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" cyan="0.089999999999999997" magenta="0.058756510416666664" yellow="0.60689473152160645" black="0.16050095856189728" alpha="1" colorSpace="custom" customColorSpace="genericCMYKColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bB8-5k-cuz">
-                                        <rect key="frame" x="8" y="5" width="37" height="29"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" cyan="0.11881510416666667" magenta="0.058756510416666664" yellow="0.60689473152160645" black="0.16050095856189728" alpha="1" colorSpace="custom" customColorSpace="genericCMYKColorSpace"/>
-                                        <state key="normal" image="filter"/>
-                                        <connections>
-                                            <action selector="refresh_press:" destination="BYZ-38-t0r" eventType="touchUpInside" id="eJL-9z-CRl"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VMU-wn-8M3" customClass="GMSMapView" colorLabel="IBBuiltInLabel-Gray">
+                                <rect key="frame" x="0.0" y="46" width="375" height="621"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v5x-xc-E1E">
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v5x-xc-E1E">
                                 <rect key="frame" x="0.0" y="610" width="375" height="57"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0068207577720207357" green="0.0068207577720207357" blue="0.0068207577720207357" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jNH-lR-tzr">
+                                <rect key="frame" x="5" y="0.0" width="315" height="39"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cyan="0.089999999999999997" magenta="0.058756510416666664" yellow="0.60689473152160645" black="0.16050095856189728" alpha="1" colorSpace="custom" customColorSpace="genericCMYKColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bB8-5k-cuz">
+                                <rect key="frame" x="16" y="7" width="37" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" cyan="0.11881510416666667" magenta="0.058756510416666664" yellow="0.60689473152160645" black="0.16050095856189728" alpha="1" colorSpace="custom" customColorSpace="genericCMYKColorSpace"/>
+                                <state key="normal" image="filter"/>
+                                <connections>
+                                    <action selector="refresh_press:" destination="BYZ-38-t0r" eventType="touchUpInside" id="eJL-9z-CRl"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="v5x-xc-E1E" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="590" id="6Xa-lC-oan"/>
-                            <constraint firstItem="VMU-wn-8M3" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="AVA-LN-Q3O"/>
-                            <constraint firstItem="VMU-wn-8M3" firstAttribute="leading" secondItem="v5x-xc-E1E" secondAttribute="leading" id="NSZ-m9-mci"/>
-                            <constraint firstItem="VMU-wn-8M3" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="XFS-bR-sOe"/>
-                            <constraint firstItem="VMU-wn-8M3" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="nPM-9e-yHF"/>
-                            <constraint firstItem="v5x-xc-E1E" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="uGb-M9-BNF"/>
-                            <constraint firstItem="VMU-wn-8M3" firstAttribute="trailing" secondItem="v5x-xc-E1E" secondAttribute="trailing" id="vE5-zO-y7M"/>
-                            <constraint firstAttribute="trailing" secondItem="VMU-wn-8M3" secondAttribute="trailing" id="zTT-3W-6UP"/>
-                        </constraints>
                     </view>
                     <connections>
                         <outlet property="addressLabel" destination="v5x-xc-E1E" id="Cy2-rF-5Ha"/>
@@ -72,7 +62,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="104.8" y="129.08545727136433"/>
+            <point key="canvasLocation" x="103.125" y="128.75"/>
         </scene>
     </scenes>
     <resources>
