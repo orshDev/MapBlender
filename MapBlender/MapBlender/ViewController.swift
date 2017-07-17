@@ -15,15 +15,34 @@ import Firebase
 import FirebaseDatabase
 import GooglePlaces
 
-class ViewController: UIViewController,CLLocationManagerDelegate{
+class ViewController: UIViewController{
 //
     @IBOutlet weak var mapView: GMSMapView!
 
     @IBOutlet weak var addressLabel: UILabel!
     var apiServerKey = ""
     var locationManager = CLLocationManager()
-    //let Provider = Goo()
+    let Provider = GoogleDataProvider()
     let searchRadius: Double = 1000
+    let searchedTypes = ["cafe","food"]
+    
+    @IBOutlet weak var refreshBtn: UIButton!
+    func fetchNearbyPlaces(coordinate: CLLocationCoordinate2D) {
+        // 1
+        print("enter fetching")
+        mapView.clear()
+        // 2
+        Provider.fetchPlacesNearCoordinate(coordinate: coordinate, radius:searchRadius, types: searchedTypes) { places in
+            for place: GMSPlace in places {
+                // 3
+                print("place is+")
+                print(place)
+                let marker = PlaceMarker(place: place)
+                // 4
+                marker.map = self.mapView
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +55,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate{
         self.locationManager.delegate = self
         self.locationManager.startUpdatingLocation()
         let ref = FIRDatabase.database().reference(withPath: "/places")
-        print(ref)
+       // print(ref)
         ref.observeSingleEvent(of: .value , with: { snapshot in
             let value = snapshot.value as? NSDictionary
             print("data"+"\(value)")
@@ -51,6 +70,11 @@ class ViewController: UIViewController,CLLocationManagerDelegate{
     
     
     // TEST TEST
+    @IBAction func refresh_press(_ sender: Any) {
+        fetchNearbyPlaces(coordinate: mapView.camera.target)
+
+        
+    }
     
     //Location Manager delegates
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -74,7 +98,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate{
         // 2
         geocoder.reverseGeocodeCoordinate(coordinate) { response, error in
             if let address = response?.firstResult() {
-                print(address)
+              //  print(address)
                 // 3
                self.addressLabel.unlock()
                 let lines = address.lines as [String]?
@@ -97,6 +121,27 @@ class ViewController: UIViewController,CLLocationManagerDelegate{
 }
 
 //
+// MARK: - CLLocationManagerDelegate
+extension ViewController: CLLocationManagerDelegate {
+     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+        if status == .authorizedWhenInUse {
+            locationManager.startUpdatingLocation()
+            mapView.isMyLocationEnabled = true
+            mapView.settings.myLocationButton = true
+        }
+    }
+    
+     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.first {
+            mapView.camera = GMSCameraPosition(target: location.coordinate, zoom: 15, bearing: 0, viewingAngle: 0)
+            locationManager.stopUpdatingLocation()
+            print("start fetching")
+            fetchNearbyPlaces(coordinate: location.coordinate)
+        }
+    }
+}
+
+
 // MARK: - GMSMapViewDelegate
 extension ViewController: GMSMapViewDelegate {
  
