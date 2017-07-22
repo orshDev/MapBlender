@@ -34,12 +34,18 @@ import SwiftyJSON
 class GoogleDataProvider {
   var photoCache = [String:UIImage]()
   var placesTask: URLSessionDataTask?
-  var session: URLSession {
+     var placesArray = [GMSPlace]()
+    var  placeCount = 100
+    var  placeIndex = 0
+    
+    
+    var session: URLSession {
     return URLSession.shared
   }
   
-  func fetchPlacesNearCoordinate(coordinate: CLLocationCoordinate2D, radius: Double, types:[String], completion: @escaping (([GMSPlace]) -> Void)) -> ()
+    func fetchPlacesNearCoordinate(coordinate: CLLocationCoordinate2D, radius: Double, types:[String], completion: @escaping (([GMSPlace]) -> Void)) -> ()
   {
+   // var task = placesTask
    // var url = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=200&photoreference=(reference)&key=AIzaSyDLN1yrUHGslEtcxgeJTrfIRJBjoFryXl4"
     
     var urlString = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=\(coordinate.latitude),\(coordinate.longitude)&radius=\(radius)&rankby=prominence&sensor=true&key=AIzaSyCI7rHEvomd2qbWY5dXH9Yews6kU87goA4"
@@ -48,98 +54,95 @@ class GoogleDataProvider {
     urlString += "&types=\(typesString)"
     urlString = urlString.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
     
-    if let task = placesTask, task.taskIdentifier > 0 && task.state == .running {
-      task.cancel()
-    }
-
+  //  if let task = placesTask, task.taskIdentifier > 0 && task.state == .running {
+   //  task.cancel()
+  // }
+    
+    let myGroup = DispatchGroup()
+    myGroup.enter()
+    //// Do your task
+     print("enter task.")
     UIApplication.shared.isNetworkActivityIndicatorVisible = true
-    placesTask = session.dataTask(with: NSURL(string: urlString)! as URL) {data, response, error in
-      UIApplication.shared.isNetworkActivityIndicatorVisible = false
-      var placesArray = [GMSPlace]()
-      if let aData = data {
-        let json = JSON(data:aData, options:JSONSerialization.ReadingOptions.mutableContainers, error:nil)
-      
-            let returnedPlaces: NSArray? = json["results"] as? NSArray
+    let task = session.dataTask(with: NSURL(string: urlString)! as URL) {
+        data, response, error in
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
         
-            if returnedPlaces != nil {
-                
-                for index in 0..<returnedPlaces!.count {
+        if let aData = data {
+            
+
+            self.placesArray = [GMSPlace]()
+            let json = JSON(data:aData, options:JSONSerialization.ReadingOptions.mutableContainers, error:nil)
+            let placesClient = GMSPlacesClient.init()
+            
+            if let results = json["results"].arrayObject as? [[String : AnyObject]]
+            {
+                 self.placeIndex = 0
+                 self.placeCount = results.count
+                 var i = 1
+                print("the search result count \(results.count)")
+                for rawPlace in results
+                {
                     
-                    placesArray.append(returnedPlaces?[index] as! GMSPlace )
-                    if let returnedPlace = returnedPlaces?[index] as? NSDictionary {
-                        
-                        var placeName = ""
-                        var latitude = 0.0
-                        var longitude = 0.0
-                        
-                        if let name = returnedPlace["name"] as? NSString {
-                            placeName = name as String
-                        }
-                        
-                        if let geometry = returnedPlace["geometry"] as? NSDictionary {
-                            if let location = geometry["location"] as? NSDictionary {
-                                if let lat = location["lat"] as? Double {
-                                    latitude = lat
-                                }
-                                
-                                if let lng = location["lng"] as? Double {
-                                    longitude = lng
-                                }
+                    let placeId = rawPlace["place_id"] as! String
+                    
+                    placesClient.lookUpPlaceID(placeId, callback:
+                        { (place, error) -> Void in
+                            if let error = error
+                            {
+                                print("lookup place id query error: \(error.localizedDescription)")
+                                return
                             }
-                        }
-                        
-//                        let marker = GMSMarker()
-//                        marker.position = CLLocationCoordinate2DMake(latitude, longitude)
-//                        marker.title = placeName
-//                        marker.map = self.mapView
-                    }
-                }
+                            
+                            guard let place = place else
+                            {
+                                print("No place details for \(placeId)")
+                                return
+                            }
+                            print("callback \(i)")
+                            
+                            print("Place name \(place.name)")
+                            print("Place address \(place.formattedAddress)")
+                            print("Place placeID \(place.placeID)")
+                            print("Place attributions \(place.attributions)")
+                            
+                            self.placesArray.append(place)
+                            self.placeIndex = self.placeIndex + 1
+                            
+                            if (i == results.count){
+                             completion(self.placesArray)
+                            }
+                            i = i + 1
+                    })
+                    
+                                   }
+                
             }
-//        if let results = json["results"].arrayObject as? [[String : AnyObject]] {
-//          for rawPlace in results {
-//           // for rawPlace in results {
-//            guard let place = GMSPlace() (dictionary:rawPlace.values,acceptedTypes: types) else{
-//            
-//            }
-//            //GooglePlace(dictionary: rawPlace, acceptedTypes: types)
-//            placesArray.append(place)
-//            if let reference = place.photoReference {
-//              self.fetchPhotoFromReference(reference) { image in
-//                place.photo = image
-//              }
-//            }
-//          }
-//        }
-//      }
-//      DispatchQueue.main.async() {
-//        completion(placesArray)
-      }
+            
+            
+        }
+        
+        
+        
+        
+        
+        
+        
+        
     }
-    placesTask?.resume()
-  }
+    
+    
+     print("Finished all 1.")
+    task.resume()
+    
+
+    
+    //// When you task complete
+    myGroup.leave()
+    print("finish task.")
+ 
+    
+
+ }
   
   
- // func fetchPhotoFromReference(reference: String, completion: @escaping ((UIImage?) -> Void)) -> () {
-//    if let photo = photoCache[reference] as UIImage? {
-//      completion(photo)
-//    } else {
-//      let urlString = "http://localhost:10000/maps/api/place/photo?maxwidth=200&photoreference=\(reference)"
-//      UIApplication.shared.isNetworkActivityIndicatorVisible = true
-//      session.downloadTask(with: NSURL(string: urlString)! as URL) {url, response, error in
-//        UIApplication.shared.isNetworkActivityIndicatorVisible = false
-//        if let url = url {
-//          let downloadedPhoto = UIImage(data: NSData(contentsOf: url)! as Data)
-//          self.photoCache[reference] = downloadedPhoto
-//          DispatchQueue.main.async() {
-//            completion(downloadedPhoto)
-//          }
-//        }
-//        else {
-//          DispatchQueue.main.async() {
-//            completion(nil)
-//          }
-//        }
-//      }.resume()
-//    }
-//  }
 }

@@ -24,6 +24,7 @@ class ViewController: UIViewController{
     var locationManager = CLLocationManager()
     let Provider = GoogleDataProvider()
     let searchRadius: Double = 1000
+   
     let searchedTypes = ["cafe","food"]
     
     @IBOutlet weak var refreshBtn: UIButton!
@@ -32,7 +33,9 @@ class ViewController: UIViewController{
         print("enter fetching")
         mapView.clear()
         // 2
-        Provider.fetchPlacesNearCoordinate(coordinate: coordinate, radius:searchRadius, types: searchedTypes) { places in
+        // var places = [GMSPlace]()
+        Provider.fetchPlacesNearCoordinate(coordinate: coordinate, radius:searchRadius, types: searchedTypes ) {
+        places in
             for place: GMSPlace in places {
                 // 3
                 print("place is+")
@@ -41,6 +44,7 @@ class ViewController: UIViewController{
                 // 4
                 marker.map = self.mapView
             }
+            
         }
     }
     

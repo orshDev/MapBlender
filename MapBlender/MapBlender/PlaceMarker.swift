@@ -20,7 +20,7 @@ public class PlaceMarker: GMSMarker {
         super.init()
         placeId = place.placeID
         position = place.coordinate
-        icon = UIImage(named: place.types.first!)
+        icon = UIImage(named: "marker.png")
         groundAnchor = CGPoint(x: 0.5, y: 1)
      //   appearAnimation = KGMSMarkerAnimationPop
         // = GMSMarkerAnimation()
