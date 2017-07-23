@@ -23,11 +23,53 @@ class ViewController: UIViewController{
     var apiServerKey = ""
     var locationManager = CLLocationManager()
     let Provider = GoogleDataProvider()
+    @IBOutlet weak var mapCenterPinImage: UIImageView!
     let searchRadius: Double = 1000
    
-    let searchedTypes = ["cafe","food"]
+    var searchedTypes = ["bakery", "bar", "cafe", "grocery_or_supermarket", "restaurant"]
+
     
     @IBOutlet weak var refreshBtn: UIButton!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        mapView.isMyLocationEnabled = true
+        mapView.settings.compassButton = true
+        mapView.settings.zoomGestures = true
+        mapView.delegate = self
+        
+        //Location Manager code to fetch current location
+        self.locationManager.delegate = self
+        self.locationManager.startUpdatingLocation()
+
+    //    locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
+        
+        mapView.delegate = self
+
+        
+        let ref = FIRDatabase.database().reference(withPath: "/places")
+        // print(ref)
+        ref.observeSingleEvent(of: .value , with: { snapshot in
+            let value = snapshot.value as? NSDictionary
+            print("data"+"\(value)")
+            
+        }) {(error)in print (error.localizedDescription)}
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "Types Segue" {
+            let navigationController = segue.destination as! UINavigationController
+            let controller = navigationController.topViewController as! TypesTableViewController
+            controller.selectedTypes = searchedTypes
+            controller.delegate = self
+        }
+    
+    }
+    
+
+    
+    
     func fetchNearbyPlaces(coordinate: CLLocationCoordinate2D) {
         // 1
         print("enter fetching")
@@ -48,25 +90,7 @@ class ViewController: UIViewController{
         }
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        mapView.isMyLocationEnabled = true
-        mapView.settings.compassButton = true
-        mapView.settings.zoomGestures = true
-        mapView.delegate = self
-        
-        //Location Manager code to fetch current location
-        self.locationManager.delegate = self
-        self.locationManager.startUpdatingLocation()
-        let ref = FIRDatabase.database().reference(withPath: "/places")
-       // print(ref)
-        ref.observeSingleEvent(of: .value , with: { snapshot in
-            let value = snapshot.value as? NSDictionary
-            print("data"+"\(value)")
-        
-        }) {(error)in print (error.localizedDescription)}
-    }
-//
+   //
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -80,21 +104,7 @@ class ViewController: UIViewController{
         
     }
     
-    //Location Manager delegates
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        
-        let location = locations.last
-        
-        let camera = GMSCameraPosition.camera(withLatitude: (location?.coordinate.latitude)!, longitude: (location?.coordinate.longitude)!, zoom: 17.0)
-        
-        self.mapView?.animate(to: camera)
-        
-        //Finally stop updating location otherwise it will come again and again in this delegate
-        self.locationManager.stopUpdatingLocation()
-        
-    }
-    
-    func reverseGeocodeCoordinate(coordinate: CLLocationCoordinate2D) {
+      func reverseGeocodeCoordinate(coordinate: CLLocationCoordinate2D) {
         
         // 1
         let geocoder = GMSGeocoder()
@@ -124,25 +134,53 @@ class ViewController: UIViewController{
     
 }
 
+// MARK: - TypesTableViewControllerDelegate
+extension ViewController: TypesTableViewControllerDelegate {
+    func typesController(controller: TypesTableViewController, didSelectTypes types: [String]) {
+        searchedTypes = controller.selectedTypes.sorted()
+        dismiss(animated: true, completion: nil)
+        fetchNearbyPlaces(coordinate: mapView.camera.target)
+    }
+}
+
 //
 // MARK: - CLLocationManagerDelegate
 extension ViewController: CLLocationManagerDelegate {
-     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+      func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         if status == .authorizedWhenInUse {
             locationManager.startUpdatingLocation()
             mapView.isMyLocationEnabled = true
             mapView.settings.myLocationButton = true
         }
     }
+//    
+//      func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+//        if let location = locations.first {
+//            mapView.camera = GMSCameraPosition(target: location.coordinate, zoom: 15, bearing: 0, viewingAngle: 0)
+//            locationManager.stopUpdatingLocation()
+//            print("start fetching")
+//            fetchNearbyPlaces(coordinate: location.coordinate)
+//        }
+//    }
     
-     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let location = locations.first {
-            mapView.camera = GMSCameraPosition(target: location.coordinate, zoom: 15, bearing: 0, viewingAngle: 0)
-            locationManager.stopUpdatingLocation()
-            print("start fetching")
-            fetchNearbyPlaces(coordinate: location.coordinate)
-        }
+    //Location Manager delegates
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        let location = locations.first
+        
+        let camera = GMSCameraPosition.camera(withLatitude: (location?.coordinate.latitude)!, longitude: (location?.coordinate.longitude)!, zoom: 17.0)
+        
+        self.mapView?.animate(to: camera)
+        
+        //Finally stop updating location otherwise it will come again and again in this delegate
+        self.locationManager.stopUpdatingLocation()
+        print("start fetching")
+        fetchNearbyPlaces(coordinate: (location?.coordinate)!)
+
+        
     }
+    
+
 }
 
 
@@ -155,28 +193,39 @@ extension ViewController: GMSMapViewDelegate {
     
     func mapView(_ mapView: GMSMapView, willMove gesture: Bool) {
         addressLabel.lock()
+        
+        if (gesture) {
+            mapCenterPinImage.fadeIn(duration: 0.25)
+            mapView.selectedMarker = nil
+        }
     }
     
     func mapView(_ mapView: GMSMapView, markerInfoContents marker: GMSMarker) -> UIView? {
-        // 1
-       // let placeMarker = marker as! PlaceMarker
+        let placeMarker = marker as! PlaceMarker
         
-        // 2
         if let infoView = UIView.viewFromNibName(name: "MarkerInfoView") as? MarkerInfoView {
-            // 3
-        //    infoView.nameLabel.text = placeMarker.place.name
-     //       infoView.loadFirstPhotoForPlace(placeID: PlaceMarker.getPlaceID(PlaceMarker))
-            // 4
-        //    if let photo = placeMarker.place.{
-        //        infoView.placePhoto.image = photo
-          //  } else {
-          //      infoView.placePhoto.image = UIImage(named: "generic")
-          //  }
+            infoView.nameLabel.text = placeMarker.place.name
+            
+            if let photo = placeMarker.icon {
+                infoView.placePhoto.image = photo
+            } else {
+                infoView.placePhoto.image = UIImage(named: "generic")
+            }
             
             return infoView
         } else {
             return nil
         }
     }
-}
+    
+    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+        mapCenterPinImage.fadeOut(duration: 0.25)
+        return false
+    }
+    
+    func didTapMyLocationButtonForMapView(mapView: GMSMapView!) -> Bool {
+        mapCenterPinImage.fadeIn(duration: 0.25)
+        mapView.selectedMarker = nil
+        return false
+    }}
 

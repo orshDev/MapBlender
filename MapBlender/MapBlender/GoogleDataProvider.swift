@@ -45,19 +45,13 @@ class GoogleDataProvider {
   
     func fetchPlacesNearCoordinate(coordinate: CLLocationCoordinate2D, radius: Double, types:[String], completion: @escaping (([GMSPlace]) -> Void)) -> ()
   {
-   // var task = placesTask
-   // var url = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=200&photoreference=(reference)&key=AIzaSyDLN1yrUHGslEtcxgeJTrfIRJBjoFryXl4"
-    
+   
     var urlString = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=\(coordinate.latitude),\(coordinate.longitude)&radius=\(radius)&rankby=prominence&sensor=true&key=AIzaSyCI7rHEvomd2qbWY5dXH9Yews6kU87goA4"
     print(urlString)
     let typesString = types.count > 0 ? types.joined(separator: "|") : "food"
     urlString += "&types=\(typesString)"
     urlString = urlString.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
-    
-  //  if let task = placesTask, task.taskIdentifier > 0 && task.state == .running {
-   //  task.cancel()
-  // }
-    
+ 
     let myGroup = DispatchGroup()
     myGroup.enter()
     //// Do your task
@@ -120,23 +114,14 @@ class GoogleDataProvider {
             
             
         }
-        
-        
-        
-        
-        
-        
-        
-        
+  
     }
     
     
      print("Finished all 1.")
     task.resume()
     
-
-    
-    //// When you task complete
+//// When you task complete
     myGroup.leave()
     print("finish task.")
  

@@ -11,6 +11,7 @@
 		226F685B1F1A4F48000465A6 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226F685A1F1A4F48000465A6 /* UIViewExtension.swift */; };
 		226F685D1F1A5349000465A6 /* GoogleDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226F685C1F1A5349000465A6 /* GoogleDataProvider.swift */; };
 		226F685F1F1A5D1A000465A6 /* MarkerInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226F685E1F1A5D1A000465A6 /* MarkerInfoView.swift */; };
+		226F68611F253D7F000465A6 /* TypesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226F68601F253D7F000465A6 /* TypesTableViewController.swift */; };
 		22F61D031F10CEEC00C70616 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F61D021F10CEEC00C70616 /* AppDelegate.swift */; };
 		22F61D051F10CEEC00C70616 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F61D041F10CEEC00C70616 /* ViewController.swift */; };
 		22F61D081F10CEEC00C70616 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22F61D061F10CEEC00C70616 /* Main.storyboard */; };
@@ -25,6 +26,7 @@
 		226F685A1F1A4F48000465A6 /* UIViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		226F685C1F1A5349000465A6 /* GoogleDataProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleDataProvider.swift; sourceTree = "<group>"; };
 		226F685E1F1A5D1A000465A6 /* MarkerInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkerInfoView.swift; sourceTree = "<group>"; };
+		226F68601F253D7F000465A6 /* TypesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypesTableViewController.swift; sourceTree = "<group>"; };
 		22F61CFF1F10CEEC00C70616 /* MapBlender.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapBlender.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		22F61D021F10CEEC00C70616 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		22F61D041F10CEEC00C70616 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -79,6 +81,7 @@
 		22F61D011F10CEEC00C70616 /* MapBlender */ = {
 			isa = PBXGroup;
 			children = (
+				226F68601F253D7F000465A6 /* TypesTableViewController.swift */,
 				22F61D021F10CEEC00C70616 /* AppDelegate.swift */,
 				22F61D141F10D6DF00C70616 /* GoogleService-Info.plist */,
 				22F61D041F10CEEC00C70616 /* ViewController.swift */,
@@ -233,6 +236,7 @@
 				22F61D051F10CEEC00C70616 /* ViewController.swift in Sources */,
 				226F68571F1156A7000465A6 /* PlaceMarker.swift in Sources */,
 				226F685F1F1A5D1A000465A6 /* MarkerInfoView.swift in Sources */,
+				226F68611F253D7F000465A6 /* TypesTableViewController.swift in Sources */,
 				22F61D031F10CEEC00C70616 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

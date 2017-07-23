@@ -13,5 +13,6 @@ target 'MapBlender' do
   pod ‘Firebase’
   pod ‘Firebase/Database’
   pod ‘SwiftyJSON’
+  pod 'Firebase/Storage'
 
 end
