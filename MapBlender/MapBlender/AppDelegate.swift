@@ -17,12 +17,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     let googlemapAPIkey = "AIzaSyDLN1yrUHGslEtcxgeJTrfIRJBjoFryXl4"
-
+    let googleplacesClientKey = "AIzaSyC6F4dJRwgXx0yszrJVRG8jx-xKGr5i_B4"
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         FIRApp.configure()
         GMSServices.provideAPIKey(googlemapAPIkey)
-        GMSPlacesClient.provideAPIKey(googlemapAPIkey)
+        GMSPlacesClient.provideAPIKey(googleplacesClientKey)
         return true
     }
 

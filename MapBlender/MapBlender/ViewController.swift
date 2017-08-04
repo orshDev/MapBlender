@@ -7,7 +7,6 @@
 //
 
 
-// call"https://maps.googleapis.com/maps/api/place/photo?maxwidth=200&photoreference=(reference)&key=replaceWithYourApiKey"
 
 import UIKit
 import GoogleMaps
@@ -17,26 +16,40 @@ import GooglePlaces
 
 class ViewController: UIViewController{
 //
-    @IBOutlet weak var mapView: GMSMapView!
+    @IBOutlet weak var mapView: GMSMapView?
 
     @IBOutlet weak var addressLabel: UILabel!
     var apiServerKey = ""
     var locationManager = CLLocationManager()
     let Provider = GoogleDataProvider()
     @IBOutlet weak var mapCenterPinImage: UIImageView!
-    let searchRadius: Double = 1000
+    let searchRadius: Double = 500
    
-    var searchedTypes = ["bakery", "bar", "cafe", "grocery_or_supermarket", "restaurant"]
+    var searchedTypes = ["bar", "cafe", "restaurant"]
 
+    @IBOutlet weak var filter: UIButton!
     
-    @IBOutlet weak var refreshBtn: UIButton!
+    var placePhoto: UIImageView!
+    
+    @IBOutlet weak var refresh: UIButton!
+    
+//     var camera: GMSCameraPosition = GMSCameraPosition.camera(withLatitude: -33.86, longitude: 151.20, zoom: 6);
+//   
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        mapView.isMyLocationEnabled = true
-        mapView.settings.compassButton = true
-        mapView.settings.zoomGestures = true
-        mapView.delegate = self
+      
+//        self.mapView = GMSMapView.map(withFrame: CGRect.zero, camera:camera);
+//
+//        
+   
+        self.mapView?.delegate = self
+        
+         self.mapView?.isMyLocationEnabled = true
+          self.mapView?.settings.compassButton = true
+        self.mapView?.settings.zoomGestures = true
+           self.mapView?.settings.myLocationButton = true
         
         //Location Manager code to fetch current location
         self.locationManager.delegate = self
@@ -45,8 +58,8 @@ class ViewController: UIViewController{
     //    locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         
-        mapView.delegate = self
-
+       
+     
         
         let ref = FIRDatabase.database().reference(withPath: "/places")
         // print(ref)
@@ -58,7 +71,7 @@ class ViewController: UIViewController{
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "Types Segue" {
+        if segue.identifier == "Show" {
             let navigationController = segue.destination as! UINavigationController
             let controller = navigationController.topViewController as! TypesTableViewController
             controller.selectedTypes = searchedTypes
@@ -73,7 +86,7 @@ class ViewController: UIViewController{
     func fetchNearbyPlaces(coordinate: CLLocationCoordinate2D) {
         // 1
         print("enter fetching")
-        mapView.clear()
+        mapView?.clear()
         // 2
         // var places = [GMSPlace]()
         Provider.fetchPlacesNearCoordinate(coordinate: coordinate, radius:searchRadius, types: searchedTypes ) {
@@ -84,6 +97,8 @@ class ViewController: UIViewController{
                 print(place)
                 let marker = PlaceMarker(place: place)
                 // 4
+               // marker.iconpicView?.cropAsCircleWithBorder(borderColor: UIColor.red, strokeWidth: 20)
+              //  marker.iconView = marker.markerView
                 marker.map = self.mapView
             }
             
@@ -98,11 +113,20 @@ class ViewController: UIViewController{
     
     
     // TEST TEST
-    @IBAction func refresh_press(_ sender: Any) {
-        fetchNearbyPlaces(coordinate: mapView.camera.target)
-
+//    @IBAction func refresh_press(_ sender: Any) {
+//        fetchNearbyPlaces(coordinate: mapView.camera.target)
+//
+//        
+//    }
+      @IBAction func refresh_action(_ sender: Any) {
         
-    }
+          fetchNearbyPlaces(coordinate: (mapView?.camera.target)!)
+      }
+    
+    
+      @IBAction func filter_action(_ sender: Any) {
+        self.performSegue(withIdentifier: "filter_show", sender: self)
+      }
     
       func reverseGeocodeCoordinate(coordinate: CLLocationCoordinate2D) {
         
@@ -122,7 +146,7 @@ class ViewController: UIViewController{
                 UIView.animate(withDuration: 0.25) {
               //      self.view.layoutIfNeeded()
                   let labelHeight = self.addressLabel.intrinsicContentSize.height
-                   self.mapView.padding = UIEdgeInsets(top: self.topLayoutGuide.length, left: 0,
+                   self.mapView?.padding = UIEdgeInsets(top: self.topLayoutGuide.length, left: 0,
                                                   bottom: labelHeight, right: 0)
                 }
                 
@@ -139,7 +163,7 @@ extension ViewController: TypesTableViewControllerDelegate {
     func typesController(controller: TypesTableViewController, didSelectTypes types: [String]) {
         searchedTypes = controller.selectedTypes.sorted()
         dismiss(animated: true, completion: nil)
-        fetchNearbyPlaces(coordinate: mapView.camera.target)
+        fetchNearbyPlaces(coordinate: (mapView?.camera.target)!)
     }
 }
 
@@ -149,8 +173,8 @@ extension ViewController: CLLocationManagerDelegate {
       func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         if status == .authorizedWhenInUse {
             locationManager.startUpdatingLocation()
-            mapView.isMyLocationEnabled = true
-            mapView.settings.myLocationButton = true
+            mapView?.isMyLocationEnabled = true
+            mapView?.settings.myLocationButton = true
         }
     }
 //    
@@ -189,6 +213,9 @@ extension ViewController: GMSMapViewDelegate {
  
     func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
         reverseGeocodeCoordinate(coordinate: position.target)
+        
+        
+        
     }
     
     func mapView(_ mapView: GMSMapView, willMove gesture: Bool) {
@@ -203,19 +230,24 @@ extension ViewController: GMSMapViewDelegate {
     func mapView(_ mapView: GMSMapView, markerInfoContents marker: GMSMarker) -> UIView? {
         let placeMarker = marker as! PlaceMarker
         
-        if let infoView = UIView.viewFromNibName(name: "MarkerInfoView") as? MarkerInfoView {
-            infoView.nameLabel.text = placeMarker.place.name
-            
-            if let photo = placeMarker.icon {
-                infoView.placePhoto.image = photo
-            } else {
-                infoView.placePhoto.image = UIImage(named: "generic")
-            }
-            
-            return infoView
-        } else {
-            return nil
-        }
+      print(placeMarker.place.website?.absoluteString ?? "not found")
+        
+//        if let infoView = UIView.viewFromNibName(name: "MarkerInfoView") as? MarkerInfoView {
+//            infoView.nameLabel.text = placeMarker.place.name
+//            
+//            
+//            if let photo = placeMarker.icon {
+//                infoView.placePhoto.image = photo
+//                infoView.placePhoto.cropAsCircleWithBorder(borderColor: UIColor.red, strokeWidth: 20)
+//            } else {
+//               // infoView.placePhoto.image = UIImage(named: "generic")
+//            }
+//            
+//            return infoView
+//        } else {
+//            return nil
+//        }
+        return nil
     }
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {

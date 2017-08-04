@@ -37,8 +37,9 @@ class GoogleDataProvider {
      var placesArray = [GMSPlace]()
     var  placeCount = 100
     var  placeIndex = 0
-    
-    
+    typealias JSONDictionary = [String:Any]
+    var placesClient: GMSPlacesClient?
+
     var session: URLSession {
     return URLSession.shared
   }
@@ -46,7 +47,7 @@ class GoogleDataProvider {
     func fetchPlacesNearCoordinate(coordinate: CLLocationCoordinate2D, radius: Double, types:[String], completion: @escaping (([GMSPlace]) -> Void)) -> ()
   {
    
-    var urlString = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=\(coordinate.latitude),\(coordinate.longitude)&radius=\(radius)&rankby=prominence&sensor=true&key=AIzaSyCI7rHEvomd2qbWY5dXH9Yews6kU87goA4"
+    var urlString = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=\(coordinate.latitude),\(coordinate.longitude)&radius=\(radius)&rankby=prominence&sensor=true&key=AIzaSyC6F4dJRwgXx0yszrJVRG8jx-xKGr5i_B4"
     print(urlString)
     let typesString = types.count > 0 ? types.joined(separator: "|") : "food"
     urlString += "&types=\(typesString)"
@@ -66,20 +67,30 @@ class GoogleDataProvider {
 
             self.placesArray = [GMSPlace]()
             let json = JSON(data:aData, options:JSONSerialization.ReadingOptions.mutableContainers, error:nil)
-            let placesClient = GMSPlacesClient.init()
-            
+           // let placesClient = GMSPlacesClient.init()
+            self.placesClient = GMSPlacesClient.shared()
             if let results = json["results"].arrayObject as? [[String : AnyObject]]
             {
                  self.placeIndex = 0
                  self.placeCount = results.count
                  var i = 1
                 print("the search result count \(results.count)")
-                for rawPlace in results
+                for rawPlace:JSONDictionary in results
                 {
-                    
+                                      
                     let placeId = rawPlace["place_id"] as! String
-                    
-                    placesClient.lookUpPlaceID(placeId, callback:
+                 guard let OpenHours = rawPlace["opening_hours"] as? [String : AnyObject]
+                    else{
+                    print("not found open hours")
+                        continue
+                    }
+
+                  guard let openNowStatus = OpenHours["open_now"] as? Bool
+                    else{
+                        print("not found open hours")
+                        continue
+                    }
+                    self.placesClient?.lookUpPlaceID(placeId, callback:
                         { (place, error) -> Void in
                             if let error = error
                             {
@@ -92,12 +103,17 @@ class GoogleDataProvider {
                                 print("No place details for \(placeId)")
                                 return
                             }
-                            print("callback \(i)")
+//                            print("callback \(i)") 
+//                            print("Place name \(place.name)")
+//                           print("open hours \(openNowStatus)")
+                           
+                            place.setValue(openNowStatus,forKey: "isAccessibilityElement")
                             
-                            print("Place name \(place.name)")
-                            print("Place address \(place.formattedAddress)")
-                            print("Place placeID \(place.placeID)")
-                            print("Place attributions \(place.attributions)")
+                          // place.setValue(, forKeyPath: )
+//                            print("Place placeID \(place.placeID)")
+//                            print("Place close hour \(place.openNowStatus.rawValue.description.utf8)")
+//                            print("Place close hour2 \(place.openNowStatus.hashValue)")
+//                            print("Place attributions \(place.attributions)")
                             
                             self.placesArray.append(place)
                             self.placeIndex = self.placeIndex + 1
