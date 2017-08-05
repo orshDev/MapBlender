@@ -82,14 +82,12 @@ class GoogleDataProvider {
                  guard let OpenHours = rawPlace["opening_hours"] as? [String : AnyObject]
                     else{
                     print("not found open hours")
+                        i = i + 1
                         continue
                     }
 
-                  guard let openNowStatus = OpenHours["open_now"] as? Bool
-                    else{
-                        print("not found open hours")
-                        continue
-                    }
+                   let openNowStatus = OpenHours["open_now"] as? Bool
+                    
                     self.placesClient?.lookUpPlaceID(placeId, callback:
                         { (place, error) -> Void in
                             if let error = error

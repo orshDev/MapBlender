@@ -23,7 +23,7 @@ class ViewController: UIViewController{
     var locationManager = CLLocationManager()
     let Provider = GoogleDataProvider()
     @IBOutlet weak var mapCenterPinImage: UIImageView!
-    let searchRadius: Double = 500
+    let searchRadius: Double = 50
    
     var searchedTypes = ["bar", "cafe", "restaurant"]
 
@@ -112,12 +112,7 @@ class ViewController: UIViewController{
     }
     
     
-    // TEST TEST
-//    @IBAction func refresh_press(_ sender: Any) {
-//        fetchNearbyPlaces(coordinate: mapView.camera.target)
-//
-//        
-//    }
+
       @IBAction func refresh_action(_ sender: Any) {
         
           fetchNearbyPlaces(coordinate: (mapView?.camera.target)!)

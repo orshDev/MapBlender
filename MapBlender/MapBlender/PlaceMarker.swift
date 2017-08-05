@@ -129,15 +129,15 @@ public class PlaceMarker: GMSMarker {
                 
                 let value = self.place.value(forKey: "isAccessibilityElement") as! Bool
                 
-                 print("get open ans: \(value)")
+               //  print("get open ans: \(value)")
            
                 if (value){
                 
-                    self.icon = UIImage(data:data!)?.roundedImageWithBorder(width: 2, color: UIColor.green)
+                    self.icon = UIImage(data:data!)?.roundedImageWithBorder(width: 4, color: UIColor.green)
                 }
                 else{
                     // Data for "images/island.jpg" is returned
-                    self.icon = UIImage(data:data!)?.roundedImageWithBorder(width: 2, color: UIColor.red)
+                    self.icon = UIImage(data:data!)?.roundedImageWithBorder(width: 4, color: UIColor.red)
                 
                 }
               
