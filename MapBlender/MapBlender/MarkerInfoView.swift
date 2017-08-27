@@ -29,9 +29,28 @@ import GooglePlaces
 
 class MarkerInfoView: UIView {
   
-  @IBOutlet weak var placePhoto: UIImageView!
-  @IBOutlet weak var nameLabel: UILabel!
     
+//  @IBOutlet weak var placePhoto: UIImageView!
+    @IBOutlet weak var placePhoto: UIImageView!
+ // @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var nameLabel: UILabel!
+    
+    
+    override init (frame: CGRect){
+    super.init(frame: frame)
+    }
+    
+    required init? (coder aDecoder:NSCoder){
+        super.init(coder:aDecoder)
+    }
+    
+    @IBAction func didTapInButton(_ sender: Any) {
+        print("button tapped")
+    }
+    
+    class func instanceFromNib() -> UIView {
+        return UINib(nibName: "MarkerInfoView", bundle: nil).instantiate(withOwner: self, options: nil).first as! UIView
+    }
     
     func loadFirstPhotoForPlace(placeID: String) {
         GMSPlacesClient.shared().lookUpPhotos(forPlaceID: placeID) { (photos, error) -> Void in
@@ -47,6 +66,7 @@ class MarkerInfoView: UIView {
     }
     
     func loadImageForMetadata(photoMetadata: GMSPlacePhotoMetadata) {
+        
         GMSPlacesClient.shared().loadPlacePhoto(photoMetadata, callback: {
             (photo, error) -> Void in
             if let error = error {

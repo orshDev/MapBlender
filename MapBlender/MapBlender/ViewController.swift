@@ -13,6 +13,7 @@ import GoogleMaps
 import Firebase
 import FirebaseDatabase
 import GooglePlaces
+import FirebaseStorage
 
 class ViewController: UIViewController{
 //
@@ -31,8 +32,11 @@ class ViewController: UIViewController{
     
     var placePhoto: UIImageView!
     
+     var storage: FIRStorage!
+     var infoWindow = MarkerInfoView()
     @IBOutlet weak var refresh: UIButton!
-    
+    fileprivate var PlaceMarkerInfo : GMSMarker? = GMSMarker()
+
 //     var camera: GMSCameraPosition = GMSCameraPosition.camera(withLatitude: -33.86, longitude: 151.20, zoom: 6);
 //   
 
@@ -60,6 +64,7 @@ class ViewController: UIViewController{
         
        
      
+        
         
         let ref = FIRDatabase.database().reference(withPath: "/places")
         // print(ref)
@@ -222,37 +227,107 @@ extension ViewController: GMSMapViewDelegate {
         }
     }
     
-    func mapView(_ mapView: GMSMapView, markerInfoContents marker: GMSMarker) -> UIView? {
+    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool{
+        // 1
         let placeMarker = marker as! PlaceMarker
+         storage = FIRStorage.storage()
+        let num = 10
+        // 2
+        print("start click")
+       // Bundle.main.loadNibNamed("MarkerInfoView", owner:self , options: nil)
         
-      print(placeMarker.place.website?.absoluteString ?? "not found")
         
+            // Needed to create the custom info window
+       // locationMarker = marker
+        infoWindow.removeFromSuperview()
+        infoWindow = loadNiB()
+         let location = placeMarker.position
+        infoWindow.center = mapView.projection.point(for: location)
+        infoWindow.center.y = infoWindow.center.y - sizeForOffset(view: infoWindow)
+        print("text click \(placeMarker.place.name)")
+        //infoWindow.nameLabel.text = placeMarker.place.name
+        
+        //print("text click \(infoWindow.nameLabel.text)")
+        
+        let islandRef = storage?.reference().child("sales/\(num)/\(num).png")
+        // print("wrong path")
+        
+        
+        islandRef?.data(withMaxSize: 1 * 256 * 256) { data, error in
+            //            if error != nil {
+            //                // Uh-oh, an error occurred!
+            //            }
+            
+            
+            //self.infoWindow.placePhoto.image = UIImage(data:data!)
+            
+        }
+        self.view.addSubview(infoWindow)
+        
+        return false
+        
+        
+    //    let infoView = UIView.viewFromNibName(name: "MarkerInfoView") as? MarkerInfoView
 //        if let infoView = UIView.viewFromNibName(name: "MarkerInfoView") as? MarkerInfoView {
-//            infoView.nameLabel.text = placeMarker.place.name
-//            
-//            
-//            if let photo = placeMarker.icon {
+            // 3
+        
+            // 4
+//            if let photo = placeMarker.place. {
 //                infoView.placePhoto.image = photo
-//                infoView.placePhoto.cropAsCircleWithBorder(borderColor: UIColor.red, strokeWidth: 20)
 //            } else {
-//               // infoView.placePhoto.image = UIImage(named: "generic")
+//                infoView.placePhoto.image = UIImage(named: "generic")
 //            }
-//            
-//            return infoView
+            
+           // return infoView
 //        } else {
 //            return nil
 //        }
-        return nil
     }
     
-    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-        mapCenterPinImage.fadeOut(duration: 0.25)
-        return false
+    // MARK: Needed to create the custom info window
+    func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
+//        if (PlaceMarkerInfo() != nil){
+           guard let location = PlaceMarkerInfo?.position else {
+               print("locationMarker is nil")
+               return
+            }
+            infoWindow.center = mapView.projection.point(for: location)
+            infoWindow.center.y = infoWindow.center.y - sizeForOffset(view: infoWindow)
+        }
+    
+    
+    // MARK: Needed to create the custom info window
+    func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
+        return UIView()
     }
     
+    
+    // MARK: Needed to create the custom info window
+    func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
+        infoWindow.removeFromSuperview()
+    }
+    
+    // MARK: Needed to create the custom info window (this is optional)
+    func sizeForOffset(view: UIView) -> CGFloat {
+        return  135.0
+    }
+    
+    // MARK: Needed to create the custom info window (this is optional)
+    func loadNiB() -> MarkerInfoView{
+        let infoWindow = MarkerInfoView.instanceFromNib() as! MarkerInfoView
+        return infoWindow
+    }
+    
+//    private func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+//        mapCenterPinImage.fadeOut(duration: 0.25)
+//        return false
+//    }
+//    
     func didTapMyLocationButtonForMapView(mapView: GMSMapView!) -> Bool {
         mapCenterPinImage.fadeIn(duration: 0.25)
         mapView.selectedMarker = nil
         return false
-    }}
+        }
+}
+
 
