@@ -29,12 +29,10 @@ import GooglePlaces
 
 class MarkerInfoView: UIView {
   
+
+    @IBOutlet weak var text: UILabel!
     
-//  @IBOutlet weak var placePhoto: UIImageView!
-    @IBOutlet weak var placePhoto: UIImageView!
- // @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var nameLabel: UILabel!
-    
+    @IBOutlet weak var picture_sale: UIImageView!
     
     override init (frame: CGRect){
     super.init(frame: frame)
@@ -73,8 +71,8 @@ class MarkerInfoView: UIView {
                 // TODO: handle the error.
                 print("Error: \(error.localizedDescription)")
             } else {
-                self.placePhoto.image = photo;
-                self.nameLabel.attributedText = photoMetadata.attributions;
+                self.picture_sale.image = photo;
+                self.text.attributedText = photoMetadata.attributions;
             }
         })
     }

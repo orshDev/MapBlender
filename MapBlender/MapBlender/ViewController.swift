@@ -245,7 +245,7 @@ extension ViewController: GMSMapViewDelegate {
         infoWindow.center = mapView.projection.point(for: location)
         infoWindow.center.y = infoWindow.center.y - sizeForOffset(view: infoWindow)
         print("text click \(placeMarker.place.name)")
-        //infoWindow.nameLabel.text = placeMarker.place.name
+        infoWindow.text.text = placeMarker.place.name
         
         //print("text click \(infoWindow.nameLabel.text)")
         
@@ -259,7 +259,7 @@ extension ViewController: GMSMapViewDelegate {
             //            }
             
             
-            //self.infoWindow.placePhoto.image = UIImage(data:data!)
+            self.infoWindow.picture_sale.image = UIImage(data:data!)
             
         }
         self.view.addSubview(infoWindow)
@@ -309,7 +309,7 @@ extension ViewController: GMSMapViewDelegate {
     
     // MARK: Needed to create the custom info window (this is optional)
     func sizeForOffset(view: UIView) -> CGFloat {
-        return  135.0
+        return  60.0
     }
     
     // MARK: Needed to create the custom info window (this is optional)
