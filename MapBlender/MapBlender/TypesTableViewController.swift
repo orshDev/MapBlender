@@ -5,7 +5,7 @@ import UIKit
 protocol TypesTableViewControllerDelegate: class {
   func typesController(controller: TypesTableViewController, didSelectTypes types: [String])
 }
-
+// will be implemented fully on next version
 class TypesTableViewController: UITableViewController {
   
 //  let possibleTypesDictionary = ["bakery":"Bakery", "bar":"Bar", "cafe":"Cafe", "grocery_or_supermarket":"Supermarket", "restaurant":"Restaurant"]
