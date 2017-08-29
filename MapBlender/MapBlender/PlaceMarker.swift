@@ -115,7 +115,7 @@ public class PlaceMarker: GMSMarker {
 //            })
         
         // Create a reference to the file you want to download
-      //  storage?.reference().child("brand_icon/+\placeName\+\placeName\+.png")
+      
         guard let islandRef = storage?.reference().child("brand_icon/\(placeName)/\(placeName).png") else {
             print("wrong path")
             return false
