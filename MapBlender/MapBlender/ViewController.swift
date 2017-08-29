@@ -28,15 +28,19 @@ class ViewController: UIViewController{
    
     var searchedTypes = ["bar", "cafe", "restaurant"]
 
-    @IBOutlet weak var filter: UIButton!
     
+    @IBOutlet weak var filter_button: UIButton!
     var placePhoto: UIImageView!
+    
     
      var storage: FIRStorage!
      var infoWindow = MarkerInfoView()
     @IBOutlet weak var refresh: UIButton!
     fileprivate var PlaceMarkerInfo : GMSMarker? = GMSMarker()
   
+    @IBAction func filter_button_action(_ sender: Any) {
+        // will be implemented in next version
+    }
 
     
     override func viewDidLoad() {
@@ -117,9 +121,7 @@ class ViewController: UIViewController{
       }
     
     
-      @IBAction func filter_action(_ sender: Any) {
-        self.performSegue(withIdentifier: "filter_show", sender: self)
-      }
+   
     
       func reverseGeocodeCoordinate(coordinate: CLLocationCoordinate2D) {
      

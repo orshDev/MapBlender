@@ -25,24 +25,12 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jNH-lR-tzr">
-                                <rect key="frame" x="5" y="0.0" width="315" height="39"/>
+                                <rect key="frame" x="5" y="0.0" width="315" height="38.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cyan="0.089999999999999997" magenta="0.058756510416666664" yellow="0.60689473152160645" black="0.16050095856189728" alpha="1" colorSpace="custom" customColorSpace="genericCMYKColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bB8-5k-cuz">
-                                <rect key="frame" x="283" y="32" width="37" height="29"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="29" id="JIc-Qo-TGt"/>
-                                    <constraint firstAttribute="width" constant="37" id="Ret-JO-My0"/>
-                                </constraints>
-                                <state key="normal" image="filter"/>
-                                <connections>
-                                    <action selector="filter_action:" destination="BYZ-38-t0r" eventType="touchUpInside" id="HfI-Rv-ycl"/>
-                                    <segue destination="bZg-Ti-Rmh" kind="show" identifier="filter_show" id="Kl4-nC-99m"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xWj-0X-Amz">
                                 <rect key="frame" x="5" y="30" width="39" height="31"/>
                                 <constraints>
@@ -80,6 +68,17 @@
                                     <constraint firstItem="fJl-fh-cF9" firstAttribute="leading" secondItem="VMU-wn-8M3" secondAttribute="leading" constant="127" id="wuj-Ud-344"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bB8-5k-cuz">
+                                <rect key="frame" x="283" y="35" width="37" height="26"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="29" id="JIc-Qo-TGt"/>
+                                    <constraint firstAttribute="width" constant="37" id="Ret-JO-My0"/>
+                                </constraints>
+                                <state key="normal" image="filter"/>
+                                <connections>
+                                    <action selector="filter_button_action:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9eZ-aB-DnI"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -103,7 +102,7 @@
                     </view>
                     <connections>
                         <outlet property="addressLabel" destination="v5x-xc-E1E" id="Cy2-rF-5Ha"/>
-                        <outlet property="filter" destination="bB8-5k-cuz" id="mZT-LN-kl4"/>
+                        <outlet property="filter_button" destination="bB8-5k-cuz" id="6Ne-gO-dTR"/>
                         <outlet property="mapCenterPinImage" destination="fJl-fh-cF9" id="jb1-i6-hWY"/>
                         <outlet property="mapView" destination="VMU-wn-8M3" id="pQM-WR-72T"/>
                         <outlet property="refresh" destination="xWj-0X-Amz" id="gOR-hS-K0k"/>
@@ -129,7 +128,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="njG-cB-Ue9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="548" y="248"/>
+            <point key="canvasLocation" x="799" y="173"/>
         </scene>
     </scenes>
     <resources>
