@@ -101,17 +101,7 @@ class GoogleDataProvider {
                                 print("No place details for \(placeId)")
                                 return
                             }
-//                            print("callback \(i)") 
-//                            print("Place name \(place.name)")
-//                           print("open hours \(openNowStatus)")
-                           
                             place.setValue(openNowStatus,forKey: "isAccessibilityElement")
-                            
-                          // place.setValue(, forKeyPath: )
-//                            print("Place placeID \(place.placeID)")
-//                            print("Place close hour \(place.openNowStatus.rawValue.description.utf8)")
-//                            print("Place close hour2 \(place.openNowStatus.hashValue)")
-//                            print("Place attributions \(place.attributions)")
                             
                             self.placesArray.append(place)
                             self.placeIndex = self.placeIndex + 1
@@ -123,19 +113,16 @@ class GoogleDataProvider {
                     })
                     
                                    }
-                
             }
             
             
         }
   
     }
-    
-    
      print("Finished all 1.")
     task.resume()
     
-//// When you task complete
+    // When task complete
     myGroup.leave()
     print("finish task.")
  
