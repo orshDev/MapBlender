@@ -1,6 +1,4 @@
-//
-//  GoogleDataProvider.swift
-//  Feed Me
+
 //
 
 import UIKit
